@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Servicios — Tecnicar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFFFFF; --bg-alt: #F2F2F2; --graphite: #1A1A1A;
+    --text: #2B2B2B; --text-muted: #6B6B6B;
+    --text-on-dark: #F2F2F2; --text-on-dark-muted: #A8A8A8;
+    --wine: #7B241C; --red: #C0392B; --red-light: #E74C3C;
+    --radius: 4px;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family: var(--font-body); color: var(--text); background: var(--bg); line-height:1.5; -webkit-font-smoothing:antialiased;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--red-light); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}}
+
+  /* NAV */
+  .nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.92); backdrop-filter:blur(8px); border-bottom:1px solid #E8E8E8;}
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .logo{font-family:var(--font-display); font-weight:700; font-size:1.35rem; letter-spacing:-0.02em; color:var(--graphite);}
+  .logo span{color:var(--wine);}
+  .nav-links{display:flex; align-items:center; gap:32px; font-size:0.92rem; font-weight:500;}
+  .nav-links a{color:var(--text); position:relative; padding:4px 0;}
+  .nav-links a.active{color:var(--wine);}
+  .nav-links a::after{content:""; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--red); transition:width .2s ease;}
+  .nav-links a:hover::after, .nav-links a.active::after{width:100%;}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:0.92rem; padding:12px 22px; border-radius:var(--radius); border:1.5px solid transparent; cursor:pointer; transition: transform .15s ease, background .2s ease, border-color .2s ease;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--wine); color:#fff;}
+  .btn-primary:hover{background:var(--red);}
+  .btn-outline{border-color:var(--graphite); color:var(--graphite); background:transparent;}
+  .btn-outline:hover{border-color:var(--red); color:var(--red);}
+  .nav .btn{padding:10px 20px; font-size:0.85rem;}
+
+  /* PAGE HEADER */
+  .page-header{padding:60px 0 52px; background:var(--bg-alt); border-bottom:1px solid #E8E8E8;}
+  .eyebrow{font-family:var(--font-mono); font-size:0.75rem; font-weight:600; letter-spacing:0.12em; color:var(--red); text-transform:uppercase; display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+  .eyebrow::before{content:""; width:22px; height:2px; background:var(--red);}
+  .page-header h1{font-family:var(--font-display); font-weight:700; font-size:clamp(1.9rem,3vw,2.6rem); color:var(--graphite); margin-bottom:14px; letter-spacing:-0.01em;}
+  .page-header p{color:var(--text-muted); max-width:56ch; font-size:1.02rem;}
+
+  /* SERVICES — detailed list */
+  .services{padding:80px 0 40px;}
+  .service-list{display:flex; flex-direction:column;}
+  .service-row{display:grid; grid-template-columns:72px 1fr; gap:28px; padding:40px 0; border-bottom:1px solid #E8E8E8;}
+  .service-row:first-child{padding-top:0;}
+  .icon-badge{
+    width:56px; height:56px; border-radius:50%; background:var(--bg-alt);
+    display:flex; align-items:center; justify-content:center; color:var(--wine); flex-shrink:0;
+  }
+  .service-content .mono-num{font-family:var(--font-mono); font-size:0.72rem; color:var(--red); font-weight:600; letter-spacing:0.08em; margin-bottom:8px; display:block;}
+  .service-content h3{font-family:var(--font-display); font-size:1.3rem; font-weight:600; color:var(--graphite); margin-bottom:10px;}
+  .service-content > p{font-size:0.98rem; color:var(--text-muted); margin-bottom:20px; max-width:62ch;}
+  .incluye-label{font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px; display:block;}
+  .incluye-list{display:grid; grid-template-columns:repeat(2,1fr); gap:9px 24px;}
+  .incluye-list li{display:flex; align-items:flex-start; gap:8px; font-size:0.88rem; color:var(--text);}
+  .incluye-list svg{flex-shrink:0; margin-top:3px; color:var(--red);}
+
+  /* QUOTE CALLOUT */
+  .quote-callout{
+    margin: 8px 0 96px; background: var(--graphite); border-radius:10px;
+    padding: 36px 40px; display:flex; align-items:center; justify-content:space-between;
+    gap:24px; flex-wrap:wrap; color:#fff;
+  }
+  .quote-callout p{font-size:0.98rem; color:var(--text-on-dark-muted); max-width:52ch;}
+  .quote-callout p b{color:#fff;}
+  .wa-btn{background:#25D366; color:#fff;}
+  .wa-btn:hover{background:#1fb959;}
+
+  /* FOOTER (shared) */
+  footer{background:var(--graphite); color:var(--text-on-dark); padding:64px 0 28px;}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:48px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1);}
+  footer .logo{color:#fff;}
+  footer .logo span{color:var(--red-light);}
+  .footer-tag{color:var(--text-on-dark-muted); font-size:0.88rem; margin-top:14px; max-width:32ch;}
+  .footer-col h4{font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-on-dark-muted); margin-bottom:16px;}
+  .footer-col p, .footer-col a{font-size:0.9rem; color:#D8D8D8; margin-bottom:10px; display:block;}
+  .footer-col a:hover{color:var(--red-light);}
+  .addr-name{color:#fff; font-weight:600; margin-bottom:6px; margin-top:14px;}
+  .addr-name:first-of-type{margin-top:0;}
+  .addr-links{display:flex; gap:14px; margin-bottom:6px;}
+  .addr-links a{margin-bottom:0; font-size:0.85rem; display:flex; align-items:center; gap:6px;}
+  .addr-links svg{flex-shrink:0; opacity:0.75;}
+  .ficon{display:flex !important; align-items:center; gap:9px;}
+  .ficon svg{flex-shrink:0; opacity:0.75;}
+  .footer-bottom{padding-top:24px; display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-on-dark-muted); flex-wrap:wrap; gap:10px;}
+
+  .wa-float{position:fixed; bottom:26px; right:26px; z-index:60; width:58px; height:58px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,0.25); transition:transform .2s ease;}
+  .wa-float:hover{transform:scale(1.07);}
+
+  @media (max-width:900px){
+    .service-row{grid-template-columns:48px 1fr; gap:18px; padding:32px 0;}
+    .incluye-list{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr; gap:32px;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="logo">TECNI<span>CAR</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html" class="active">Servicios</a></li>
+      <li><a href="empresas.html">Empresas</a></li>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+    <a href="contacto.html" class="btn btn-primary">Solicitar cotización</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="wrap">
+    <div class="eyebrow">Servicios</div>
+    <h1>Lo que hacemos</h1>
+    <p>Soluciones completas para el cuidado de su vehículo, con calidad técnica y precios accesibles.</p>
+  </div>
+</header>
+
+<section class="services">
+  <div class="wrap">
+    <div class="service-list">
+
+      <div class="service-row">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s6 7.5 6 11.5a6 6 0 0 1-12 0C6 9.5 12 2 12 2Z"/></svg></div>
+        <div class="service-content">
+          <span class="mono-num">01</span>
+          <h3>Mantenimiento Preventivo</h3>
+          <p>Cambios de aceite, filtros, frenos y revisiones periódicas para evitar fallas antes de que ocurran.</p>
+          <span class="incluye-label">Incluye</span>
+          <ul class="incluye-list">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Cambio de aceite y filtro de motor</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Filtro de aire y de cabina</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Revisión de frenos en las 4 llantas</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Chequeo de niveles y fluidos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/></svg></div>
+        <div class="service-content">
+          <span class="mono-num">02</span>
+          <h3>Mantenimiento Correctivo</h3>
+          <p>Diagnóstico y reparación de fallas mecánicas, eléctricas y electrónicas.</p>
+          <span class="incluye-label">Incluye</span>
+          <ul class="incluye-list">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Diagnóstico computarizado</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Identificación de la falla real</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Reparación mecánica, eléctrica o electrónica</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Explicación clara antes de reparar</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="service-content">
+          <span class="mono-num">03</span>
+          <h3>Sistemas Eléctricos y Electrónicos</h3>
+          <p>Diagnóstico especializado con equipo de última generación.</p>
+          <span class="incluye-label">Incluye</span>
+          <ul class="incluye-list">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Diagnóstico con escáner de última generación</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Revisión de sensores y módulos</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Reparación de fallas eléctricas</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Chequeo de batería y alternador</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+        <div class="service-content">
+          <span class="mono-num">04</span>
+          <h3>Transmisiones Automáticas: DCT, ATF y CVT</h3>
+          <p>Mantenimiento y reparación especializada de cajas automáticas.</p>
+          <span class="incluye-label">Incluye</span>
+          <ul class="incluye-list">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Cambio de aceite de caja</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Revisión de presión y funcionamiento</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Diagnóstico especializado de caja automática</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Mantenimiento preventivo de transmisión</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6.34L4.34 17a2 2 0 0 0 1.7 3h11.92a2 2 0 0 0 1.7-3L15 8.34V2"/><path d="M9 2h6"/><path d="M8.5 13h7"/></svg></div>
+        <div class="service-content">
+          <span class="mono-num">05</span>
+          <h3>Tratamientos Químicos Blue Chen</h3>
+          <p>Limpieza de inyectores, motor y nanotecnología antifricción.</p>
+          <span class="incluye-label">Incluye</span>
+          <ul class="incluye-list">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Limpieza de inyectores</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Limpieza de motor</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Nanotecnología antifricción</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Recomendación según el estado de su vehículo</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div class="service-content">
+          <span class="mono-num">06</span>
+          <h3>Mecánica Rápida y General</h3>
+          <p>Servicio ágil para las necesidades del día a día.</p>
+          <span class="incluye-label">Incluye</span>
+          <ul class="incluye-list">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Revisión general del vehículo</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Reparaciones menores</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Atención ágil para necesidades cotidianas</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Recomendaciones de mantenimiento futuro</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="quote-callout">
+      <p><b>Cotización personalizada según su vehículo.</b> Los precios de mantenimientos específicos (por ejemplo, por kilometraje) se irán agregando próximamente.</p>
+      <a href="https://wa.me/50686423361" target="_blank" rel="noopener" class="btn wa-btn">Escribir por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">TECNI<span>CAR</span></div>
+        <p class="footer-tag">Su aliado estratégico en mantenimiento automotriz de alto desempeño.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Sucursales</h4>
+        <p class="addr-name">Río Segundo de Alajuela</p>
+        <div class="addr-links">
+          <a href="https://maps.app.goo.gl/gAgZfpbrhacjUx5x5" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps</a>
+          <a href="https://waze.com/ul/hd1u0u5vrn" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg> Waze</a>
+        </div>
+        <p class="addr-name">Barrio Cuba, San José</p>
+        <div class="addr-links">
+          <a href="https://maps.app.goo.gl/rqv3LAcwsTwBQahx8" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps</a>
+          <a href="https://waze.com/ul/hd1u0qqyzy" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg> Waze</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="tel:+50686423361" class="ficon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg> +506 8642-3361</a>
+        <a href="mailto:arlyn.dominguez@grupomach.co" class="ficon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6Z"/><path d="m22 6-10 7L2 6"/></svg> arlyn.dominguez@grupomach.co</a>
+        <a href="https://www.facebook.com/tallertecnicarcr" target="_blank" rel="noopener" class="ficon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"/></svg> Facebook</a>
+        <a href="https://www.instagram.com/tallertecnicar/" target="_blank" rel="noopener" class="ficon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg> Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tecnicar. Todos los derechos reservados.</span>
+      <span>tecnicarcr.com</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/50686423361" class="wa-float" aria-label="Escribir por WhatsApp" target="_blank" rel="noopener">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+    <path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4C7.6 4 4 7.6 4 12.05c0 1.42.37 2.8 1.08 4.02L4 20l4.05-1.06a8.02 8.02 0 0 0 3.99 1.06h.01c4.45 0 8.05-3.6 8.05-8.05 0-2.15-.84-4.17-2.5-5.63Zm-5.55 12.4h-.01a6.7 6.7 0 0 1-3.4-.93l-.24-.14-2.4.63.64-2.34-.16-.24a6.65 6.65 0 0 1-1.02-3.55c0-3.7 3-6.7 6.7-6.7 1.79 0 3.47.7 4.74 1.96a6.65 6.65 0 0 1 1.96 4.74c0 3.7-3.01 6.7-6.7 6.7Zm3.68-5.02c-.2-.1-1.18-.58-1.36-.65-.18-.07-.32-.1-.45.1-.13.2-.52.65-.64.78-.12.13-.24.15-.44.05-.2-.1-.86-.32-1.63-1.01a6.1 6.1 0 0 1-1.13-1.4c-.12-.2 0-.31.09-.4.1-.1.2-.24.3-.36.1-.12.13-.2.2-.34.07-.13.03-.25-.02-.35-.05-.1-.45-1.08-.61-1.48-.16-.39-.33-.34-.45-.34h-.38c-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.66s.72 1.93.82 2.06c.1.13 1.41 2.15 3.42 3.02.48.2.85.33 1.14.42.48.15.92.13 1.27.08.39-.06 1.18-.48 1.35-.94.17-.46.17-.86.12-.94-.05-.08-.18-.13-.38-.23Z" fill="#fff"/>
+  </svg>
+</a>
+
+</body>
+</html>

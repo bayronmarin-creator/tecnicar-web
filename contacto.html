@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — Tecnicar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --bg-alt:#F2F2F2; --graphite:#1A1A1A;
+    --text:#2B2B2B; --text-muted:#6B6B6B;
+    --text-on-dark:#F2F2F2; --text-on-dark-muted:#A8A8A8;
+    --wine:#7B241C; --red:#C0392B; --red-light:#E74C3C;
+    --radius:4px;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-body); color:var(--text); background:var(--bg); line-height:1.5; -webkit-font-smoothing:antialiased;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{outline:2px solid var(--red-light); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}}
+
+  .nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.92); backdrop-filter:blur(8px); border-bottom:1px solid #E8E8E8;}
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .logo{font-family:var(--font-display); font-weight:700; font-size:1.35rem; letter-spacing:-0.02em; color:var(--graphite);}
+  .logo span{color:var(--wine);}
+  .nav-links{display:flex; align-items:center; gap:32px; font-size:0.92rem; font-weight:500;}
+  .nav-links a{color:var(--text); position:relative; padding:4px 0;}
+  .nav-links a.active{color:var(--wine);}
+  .nav-links a::after{content:""; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--red); transition:width .2s ease;}
+  .nav-links a:hover::after, .nav-links a.active::after{width:100%;}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:600; font-size:0.92rem; padding:12px 22px; border-radius:var(--radius); border:1.5px solid transparent; cursor:pointer; transition: transform .15s ease, background .2s ease, border-color .2s ease; font-family:var(--font-body);}
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--wine); color:#fff;}
+  .btn-primary:hover{background:var(--red);}
+  .nav .btn{padding:10px 20px; font-size:0.85rem;}
+
+  .page-header{padding:60px 0 52px; background:var(--bg-alt); border-bottom:1px solid #E8E8E8;}
+  .eyebrow{font-family:var(--font-mono); font-size:0.75rem; font-weight:600; letter-spacing:0.12em; color:var(--red); text-transform:uppercase; display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+  .eyebrow::before{content:""; width:22px; height:2px; background:var(--red);}
+  .page-header h1{font-family:var(--font-display); font-weight:700; font-size:clamp(1.9rem,3vw,2.6rem); color:var(--graphite); margin-bottom:14px; letter-spacing:-0.01em;}
+  .page-header p{color:var(--text-muted); max-width:56ch; font-size:1.02rem;}
+
+  .contact-section{padding:80px 0 96px;}
+  .contact-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:flex-start;}
+
+  .contact-form{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .form-row{display:flex; flex-direction:column; gap:8px;}
+  .form-row.full{grid-column:1 / -1;}
+  .form-row label{font-size:0.85rem; font-weight:600; color:var(--graphite);}
+  .form-row input, .form-row select, .form-row textarea{
+    font-family:var(--font-body); font-size:0.95rem; padding:12px 14px;
+    border:1.5px solid #DDD; border-radius:var(--radius); background:#fff; color:var(--text);
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus{border-color:var(--red);}
+  .form-row textarea{resize:vertical;}
+  .full-btn{grid-column:1 / -1;}
+  .form-note{font-size:0.82rem; color:var(--text-muted); margin-top:14px; grid-column:1/-1;}
+
+  .contact-panel{background:var(--graphite); border-radius:12px; padding:36px 34px; color:#fff;}
+  .contact-panel h3{font-family:var(--font-display); font-size:1.05rem; margin-bottom:20px;}
+  .cp-ficon{display:flex; align-items:center; gap:10px; font-size:0.95rem; color:#EDEDED; margin-bottom:16px;}
+  .cp-ficon svg{flex-shrink:0; opacity:0.85; color:var(--red-light);}
+  .cp-divider{border:none; border-top:1px solid rgba(255,255,255,0.12); margin:24px 0;}
+  .cp-branch h4{font-family:var(--font-display); font-size:0.98rem; margin-bottom:10px;}
+  .cp-branch{margin-bottom:22px;}
+  .cp-branch:last-of-type{margin-bottom:0;}
+  .cp-links{display:flex; gap:10px; flex-wrap:wrap;}
+  .cp-links a{
+    display:flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:600;
+    padding:8px 12px; border:1.5px solid rgba(255,255,255,0.25); border-radius:var(--radius);
+  }
+  .cp-links a:hover{border-color:var(--red-light); color:var(--red-light);}
+
+  footer{background:var(--graphite); color:var(--text-on-dark); padding:64px 0 28px; border-top:1px solid rgba(255,255,255,0.1);}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:48px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1);}
+  footer .logo{color:#fff;}
+  footer .logo span{color:var(--red-light);}
+  .footer-tag{color:var(--text-on-dark-muted); font-size:0.88rem; margin-top:14px; max-width:32ch;}
+  .footer-col h4{font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-on-dark-muted); margin-bottom:16px;}
+  .footer-col p, .footer-col a{font-size:0.9rem; color:#D8D8D8; margin-bottom:10px; display:block;}
+  .footer-col a:hover{color:var(--red-light);}
+  .addr-name{color:#fff; font-weight:600; margin-bottom:6px; margin-top:14px;}
+  .addr-name:first-of-type{margin-top:0;}
+  .addr-links{display:flex; gap:14px; margin-bottom:6px;}
+  .addr-links a{margin-bottom:0; font-size:0.85rem; display:flex; align-items:center; gap:6px;}
+  .addr-links svg{flex-shrink:0; opacity:0.75;}
+  .ficon{display:flex !important; align-items:center; gap:9px;}
+  .ficon svg{flex-shrink:0; opacity:0.75;}
+  .footer-bottom{padding-top:24px; display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-on-dark-muted); flex-wrap:wrap; gap:10px;}
+
+  .wa-float{position:fixed; bottom:26px; right:26px; z-index:60; width:58px; height:58px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,0.25); transition:transform .2s ease;}
+  .wa-float:hover{transform:scale(1.07);}
+
+  @media (max-width:900px){
+    .contact-grid{grid-template-columns:1fr;}
+    .contact-form{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr; gap:32px;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="logo">TECNI<span>CAR</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="empresas.html">Empresas</a></li>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="contacto.html" class="active">Contacto</a></li>
+    </ul>
+    <a href="https://wa.me/50686423361" target="_blank" rel="noopener" class="btn btn-primary">Escribir por WhatsApp</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="wrap">
+    <div class="eyebrow">Contacto</div>
+    <h1>Hablemos de su vehículo (o su flotilla)</h1>
+    <p>Complete el formulario o escríbanos directo por WhatsApp — lo que le sea más cómodo.</p>
+  </div>
+</header>
+
+<section class="contact-section">
+  <div class="wrap contact-grid">
+    <form class="contact-form" id="contactForm">
+      <div class="form-row">
+        <label for="f-nombre">Nombre completo</label>
+        <input type="text" id="f-nombre" required>
+      </div>
+      <div class="form-row">
+        <label for="f-telefono">Teléfono</label>
+        <input type="tel" id="f-telefono" required>
+      </div>
+      <div class="form-row">
+        <label for="f-correo">Correo (opcional)</label>
+        <input type="email" id="f-correo">
+      </div>
+      <div class="form-row">
+        <label for="f-tipo">Tipo de cliente</label>
+        <select id="f-tipo">
+          <option>Particular</option>
+          <option>Empresa / Flotilla</option>
+        </select>
+      </div>
+      <div class="form-row full">
+        <label for="f-servicio">Servicio de interés</label>
+        <select id="f-servicio">
+          <option>Mantenimiento Preventivo</option>
+          <option>Mantenimiento Correctivo</option>
+          <option>Sistemas Eléctricos y Electrónicos</option>
+          <option>Transmisiones Automáticas (DCT / ATF / CVT)</option>
+          <option>Tratamientos Químicos Blue Chen</option>
+          <option>Mecánica Rápida y General</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-row full">
+        <label for="f-mensaje">Mensaje</label>
+        <textarea id="f-mensaje" rows="4" placeholder="Cuéntenos qué necesita su vehículo..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary full-btn">Enviar por WhatsApp</button>
+      <p class="form-note">Al enviar, se abre WhatsApp con su información ya escrita, para que podamos responderle más rápido.</p>
+    </form>
+
+    <div class="contact-panel">
+      <h3>Contacto directo</h3>
+      <a href="tel:+50686423361" class="cp-ficon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg> +506 8642-3361</a>
+      <a href="mailto:arlyn.dominguez@grupomach.co" class="cp-ficon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6Z"/><path d="m22 6-10 7L2 6"/></svg> arlyn.dominguez@grupomach.co</a>
+      <a href="https://www.facebook.com/tallertecnicarcr" target="_blank" rel="noopener" class="cp-ficon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"/></svg> Facebook</a>
+      <a href="https://www.instagram.com/tallertecnicar/" target="_blank" rel="noopener" class="cp-ficon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg> Instagram</a>
+
+      <hr class="cp-divider">
+
+      <div class="cp-branch">
+        <h4>Río Segundo de Alajuela</h4>
+        <div class="cp-links">
+          <a href="https://maps.app.goo.gl/gAgZfpbrhacjUx5x5" target="_blank" rel="noopener">Google Maps</a>
+          <a href="https://waze.com/ul/hd1u0u5vrn" target="_blank" rel="noopener">Waze</a>
+        </div>
+      </div>
+      <div class="cp-branch">
+        <h4>Barrio Cuba, San José</h4>
+        <div class="cp-links">
+          <a href="https://maps.app.goo.gl/rqv3LAcwsTwBQahx8" target="_blank" rel="noopener">Google Maps</a>
+          <a href="https://waze.com/ul/hd1u0qqyzy" target="_blank" rel="noopener">Waze</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">TECNI<span>CAR</span></div>
+        <p class="footer-tag">Su aliado estratégico en mantenimiento automotriz de alto desempeño.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Sucursales</h4>
+        <p class="addr-name">Río Segundo de Alajuela</p>
+        <div class="addr-links">
+          <a href="https://maps.app.goo.gl/gAgZfpbrhacjUx5x5" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps</a>
+          <a href="https://waze.com/ul/hd1u0u5vrn" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg> Waze</a>
+        </div>
+        <p class="addr-name">Barrio Cuba, San José</p>
+        <div class="addr-links">
+          <a href="https://maps.app.goo.gl/rqv3LAcwsTwBQahx8" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps</a>
+          <a href="https://waze.com/ul/hd1u0qqyzy" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg> Waze</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="tel:+50686423361" class="ficon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg> +506 8642-3361</a>
+        <a href="mailto:arlyn.dominguez@grupomach.co" class="ficon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6Z"/><path d="m22 6-10 7L2 6"/></svg> arlyn.dominguez@grupomach.co</a>
+        <a href="https://www.facebook.com/tallertecnicarcr" target="_blank" rel="noopener" class="ficon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"/></svg> Facebook</a>
+        <a href="https://www.instagram.com/tallertecnicar/" target="_blank" rel="noopener" class="ficon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg> Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tecnicar. Todos los derechos reservados.</span>
+      <span>tecnicarcr.com</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/50686423361" class="wa-float" aria-label="Escribir por WhatsApp" target="_blank" rel="noopener">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+    <path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4C7.6 4 4 7.6 4 12.05c0 1.42.37 2.8 1.08 4.02L4 20l4.05-1.06a8.02 8.02 0 0 0 3.99 1.06h.01c4.45 0 8.05-3.6 8.05-8.05 0-2.15-.84-4.17-2.5-5.63Zm-5.55 12.4h-.01a6.7 6.7 0 0 1-3.4-.93l-.24-.14-2.4.63.64-2.34-.16-.24a6.65 6.65 0 0 1-1.02-3.55c0-3.7 3-6.7 6.7-6.7 1.79 0 3.47.7 4.74 1.96a6.65 6.65 0 0 1 1.96 4.74c0 3.7-3.01 6.7-6.7 6.7Zm3.68-5.02c-.2-.1-1.18-.58-1.36-.65-.18-.07-.32-.1-.45.1-.13.2-.52.65-.64.78-.12.13-.24.15-.44.05-.2-.1-.86-.32-1.63-1.01a6.1 6.1 0 0 1-1.13-1.4c-.12-.2 0-.31.09-.4.1-.1.2-.24.3-.36.1-.12.13-.2.2-.34.07-.13.03-.25-.02-.35-.05-.1-.45-1.08-.61-1.48-.16-.39-.33-.34-.45-.34h-.38c-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.66s.72 1.93.82 2.06c.1.13 1.41 2.15 3.42 3.02.48.2.85.33 1.14.42.48.15.92.13 1.27.08.39-.06 1.18-.48 1.35-.94.17-.46.17-.86.12-.94-.05-.08-.18-.13-.38-.23Z" fill="#fff"/>
+  </svg>
+</a>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const nombre = document.getElementById('f-nombre').value.trim();
+  const telefono = document.getElementById('f-telefono').value.trim();
+  const correo = document.getElementById('f-correo').value.trim();
+  const tipo = document.getElementById('f-tipo').value;
+  const servicio = document.getElementById('f-servicio').value;
+  const mensaje = document.getElementById('f-mensaje').value.trim();
+
+  let texto = `Hola, soy ${nombre}.\nTeléfono: ${telefono}`;
+  if(correo) texto += `\nCorreo: ${correo}`;
+  texto += `\nTipo de cliente: ${tipo}\nServicio de interés: ${servicio}`;
+  if(mensaje) texto += `\nMensaje: ${mensaje}`;
+
+  window.open('https://wa.me/50686423361?text=' + encodeURIComponent(texto), '_blank');
+});
+</script>
+
+</body>
+</html>
