@@ -65,8 +65,10 @@
     font-size: 1.35rem;
     letter-spacing: -0.02em;
     color: var(--graphite);
+    display:flex; align-items:center; gap:10px;
   }
   .logo span{color: var(--wine);}
+  .logo-icon{height:34px; width:auto; display:block;}
   .nav-links{
     display:flex; align-items:center; gap:32px;
     font-size:0.92rem; font-weight:500;
@@ -331,7 +333,7 @@
 
 <nav class="nav">
   <div class="wrap">
-    <div class="logo">TECNI<span>CAR</span></div>
+    <div class="logo"><img src="logo-icon.png" alt="Tecnicar" class="logo-icon">TECNI<span>CAR</span></div>
     <ul class="nav-links">
       <li><a href="index.html">Inicio</a></li>
       <li><a href="servicios.html">Servicios</a></li>
@@ -432,7 +434,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <div class="logo">TECNI<span>CAR</span></div>
+        <div class="logo"><img src="logo-icon.png" alt="Tecnicar" class="logo-icon">TECNI<span>CAR</span></div>
         <p class="footer-tag">Su aliado estratégico en mantenimiento automotriz de alto desempeño.</p>
       </div>
       <div class="footer-col">
