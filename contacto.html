@@ -42,6 +42,8 @@
   .btn-primary{background:var(--wine); color:#fff;}
   .btn-primary:hover{background:var(--red);}
   .nav .btn{padding:10px 20px; font-size:0.85rem;}
+  .nav-toggle-checkbox{position:absolute; opacity:0; width:0; height:0; pointer-events:none;}
+  .nav-toggle-btn{display:none; align-items:center; justify-content:center; width:38px; height:38px; cursor:pointer; color:var(--graphite); flex-shrink:0; background:none; border:none; padding:0;}
 
   .page-header{padding:60px 0 52px; background:var(--bg-alt); border-bottom:1px solid #E8E8E8;}
   .eyebrow{font-family:var(--font-mono); font-size:0.75rem; font-weight:600; letter-spacing:0.12em; color:var(--red); text-transform:uppercase; display:flex; align-items:center; gap:10px; margin-bottom:16px;}
@@ -104,7 +106,17 @@
     .contact-grid{grid-template-columns:1fr;}
     .contact-form{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr; gap:32px;}
-    .nav-links{display:none;}
+    .nav .btn{display:none;}
+    .nav-toggle-btn{display:flex;}
+    .nav-links{
+      display:none; position:absolute; top:76px; left:0; right:0;
+      flex-direction:column; align-items:flex-start; gap:2px;
+      background:#fff; padding:8px 24px 22px; border-bottom:1px solid #E8E8E8;
+      box-shadow:0 16px 28px rgba(0,0,0,0.10);
+    }
+    .nav-links li{width:100%;}
+    .nav-links a{display:block; padding:14px 0; width:100%;}
+    .nav-toggle-checkbox:checked ~ .nav-links{display:flex;}
   }
 </style>
 </head>
@@ -113,6 +125,7 @@
 <nav class="nav">
   <div class="wrap">
     <div class="logo"><img src="logo-icon.png" alt="Tecnicar" class="logo-icon">TECNI<span>CAR</span></div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
     <ul class="nav-links">
       <li><a href="index.html">Inicio</a></li>
       <li><a href="servicios.html">Servicios</a></li>
@@ -121,6 +134,9 @@
       <li><a href="contacto.html" class="active">Contacto</a></li>
     </ul>
     <a href="https://wa.me/+50684491446" target="_blank" rel="noopener" class="btn btn-primary">Escribir por WhatsApp</a>
+    <label for="nav-toggle" class="nav-toggle-btn" aria-label="Abrir menú">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </label>
   </div>
 </nav>
 
